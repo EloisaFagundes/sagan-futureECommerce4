@@ -2,11 +2,32 @@ import React from 'react';
 import propTypes from 'prop-types'
 import styled from 'styled-components'
 
-const ProductList = styled.ul``
-const ProductCard = styled.li``
+const ProductList = styled.ul`
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
 
-const Card = styled.div``
-const Picture = styled.img``
+`
+const ProductCard = styled.li`
+list-style: none;
+width: 300px;
+`
+
+const Card = styled.div`
+display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: 1fr repeat(3, 30px);
+margin: 10px;
+border: 1px dotted grey;
+padding: 5px;
+`
+const Picture = styled.img`
+display: flex;
+align-content: center;
+justify-content: center;
+width: 100%;
+max-height: 360px;
+`
 const Name = styled.span``
 const Price = styled.span``
 const Button = styled.button``
