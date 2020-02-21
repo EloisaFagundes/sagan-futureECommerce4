@@ -6,6 +6,7 @@ const ProductList = styled.ul`
 display: flex;
 flex-wrap: wrap;
 flex-direction: row;
+justify-content:space-evenly;
 
 `
 const ProductCard = styled.li`

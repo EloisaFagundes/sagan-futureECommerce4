@@ -2,10 +2,29 @@ import React from 'react'
 import styled from 'styled-components'
 
 const BoxContainer = styled.div`
-border: 1px solid grey;
-width: 300px;
+width:200px;
 height:100%;
+margin: 10px;
 `
+const DeletaItem = styled.p`
+:hover{color:red; cursor: pointer;}
+`
+const AlinhaTexto = styled.div `
+display: flex;
+justify-content:space-between;
+font-size: 0.8rem;
+width:100%;
+padding:5px;
+box-sizing:border-box;
+ p { 
+  margin: 5px;
+  text-align:left;
+  justify-self: left
+}
+`
+
+const CartText = styled.p`
+width: 60%;` 
 
 
 function CarrinhoDeCompras(props) {
@@ -13,13 +32,13 @@ function CarrinhoDeCompras(props) {
   const produtoInseridoNoCarrinho =
     props.listaDeProdutos.map((cadaProduto, index) => {
       valor = valor + (cadaProduto.value*cadaProduto.quantidade)
-      return (<div>
+      return (<AlinhaTexto>
         <p>{cadaProduto.quantidade}X</p>
-        <p>
+        <CartText>
           {cadaProduto.name}
-        </p>
-        <p onClick={() => props.removeOProduto(cadaProduto.id)} > X </p>
-      </div>)
+        </CartText>
+        <DeletaItem onClick={() => props.removeOProduto(cadaProduto.id)} > X </DeletaItem>
+      </AlinhaTexto>)
     })
   return (
     <BoxContainer>
