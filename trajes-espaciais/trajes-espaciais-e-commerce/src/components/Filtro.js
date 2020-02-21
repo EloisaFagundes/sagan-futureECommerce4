@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width:20%;
   display: flex;
   flex-wrap:wrap;
   justify-content: space-evenly;
-  border: 1px solid;
 `
 const Titulo = styled.h1`
   width: 80%;
