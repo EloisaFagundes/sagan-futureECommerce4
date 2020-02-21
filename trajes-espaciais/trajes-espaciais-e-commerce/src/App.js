@@ -3,6 +3,27 @@ import styled from "styled-components";
 import Filtro from "./components/Filtro";
 import CarrinhoDeCompras from "./components/CarrinhoDeCompras/CarrinhoDeCompras";
 
+import ProductHome from './components/Product/Home'
+
+const Main = styled.main`
+  display: grid;
+  grid-template-areas: 
+    "filter products products products cart";
+  > section {
+    border: 1px solid black;
+  }
+`
+const FilterSection = styled.section`
+  grid-area: filter;
+  width: 200px;
+`
+const ProductsSection = styled.section`
+  grid-area: products;
+`
+const CartSection = styled.section`
+  grid-area: cart;
+  width: 200px;
+`
 const Wrapper = styled.div`
   display: flex;
   justify-content:space-evenly;
@@ -88,31 +109,32 @@ class App extends React.Component {
     let objetosFiltradosNome = objetosFiltradosMaximo.filter((elemento, index, array) => {
       return ((this.state.filtroNome) ? (elemento.name.toLowerCase().indexOf(this.state.filtroNome.toLowerCase()) != -1) : true)
     })
-    let textoFiltrador = objetosFiltradosNome.map((elemento, index, array) => {
-      return (
-        <div>
-          <p>{elemento.name}</p>
-          <img src={elemento.imageUrl} width="100px" height="150px" />
-          <p>R$ {elemento.value},00</p>
-        </div>
-      )
-    })
+
     // FILTROS DO CARRINHO
     let produtoFiltradoCarrinho = this.state.produtos.filter((elemento, index, array) => {
       return (elemento.quantidade >= 1)
     })
 
+
+
+    let textoFiltrador = objetosFiltradosNome
     return (
-      <Wrapper>
-        <Filtro
-          filtro={this.onFilterprodutos}
-          valorMinimo={this.state.valorMinimo}
-          valorMaximo={this.state.valorMaximo}
-          filtroNome={this.state.filtroNome}
-        />
-        {textoFiltrador}
-        <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} />
-      </Wrapper>
+      <Main>
+        <FilterSection>
+          <Filtro
+            filtro={this.onFilterprodutos}
+            valorMinimo={this.state.valorMinimo}
+            valorMaximo={this.state.valorMaximo}
+            filtroNome={this.state.filtroNome}
+          />
+        </FilterSection>
+        <ProductsSection>
+          <ProductHome productList={textoFiltrador} onAddToCart={(item) => { console.log(item) }} />
+        </ProductsSection>
+        <CartSection>
+        <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} /></CartSection>
+      </Main>
+
     );
   }
 }
