@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Filtro from "./components/Filtro";
 import CarrinhoDeCompras from "./components/CarrinhoDeCompras/CarrinhoDeCompras";
-
+import BotaoCarrinho from "./icones/icone-carrinho.png"
 import ProductHome from './components/Product/Home'
 
 const Main = styled.main`
@@ -15,20 +15,34 @@ const Main = styled.main`
 `
 const FilterSection = styled.section`
   grid-area: filter;
-  width: 200px;
+  width: 250px;
 `
 const ProductsSection = styled.section`
   grid-area: products;
 `
 const CartSection = styled.section`
   grid-area: cart;
-  width: 200px;
+  max-width: 250px;
+  display: ${props => props.mostraCarrinho? "block":"none"}
 `
 const Wrapper = styled.div`
   display: flex;
   justify-content:space-evenly;
 `;
 
+const CartButton = styled.button`
+display:grid;
+align-items: center;
+justify-content:center;
+padding-left: 15px;
+position: fixed;
+bottom: 10px;
+right: 10px;
+border: 1px solid black;
+width:80px;
+height:80px;
+border-radius:50%;
+`
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +50,7 @@ class App extends React.Component {
       valorMinimo: "",
       valorMaximo: "",
       filtroNome: "",
+      mostraCarrinho: true,
       produtos: [
         {
           id: 1,
@@ -81,6 +96,11 @@ class App extends React.Component {
       [filtro]: valor
     })
   }
+onMostraCarrinho = () => {
+  this.setState({
+    mostraCarrinho: !this.state.mostraCarrinho
+  })
+}
 
   deletaItemCarrinho = (produtoId) => {
     let copiaProdutos = this.state.produtos.map((elemento, index, array) => {
@@ -88,6 +108,21 @@ class App extends React.Component {
         return ({
           ...elemento,
           quantidade: 0,
+        })
+      } else {
+        return (elemento)
+      }
+    })
+    this.setState({
+      produtos: copiaProdutos
+    })
+  }
+  adicionaItemCarrinho = (produtoId) => {
+    let copiaProdutos = this.state.produtos.map((elemento, index, array) => {
+      if (elemento.id === produtoId) {
+        return ({
+          ...elemento,
+          quantidade: elemento.quantidade + 1,
         })
       } else {
         return (elemento)
@@ -129,10 +164,14 @@ class App extends React.Component {
           />
         </FilterSection>
         <ProductsSection>
-          <ProductHome productList={textoFiltrador} onAddToCart={(item) => { console.log(item) }} />
+          <ProductHome productList={textoFiltrador} onAddToCart={this.adicionaItemCarrinho} />
         </ProductsSection>
-        <CartSection>
-        <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} /></CartSection>
+        <CartSection mostraCarrinho ={this.state.mostraCarrinho}>
+          <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} />
+        </CartSection>
+        <CartButton onClick={this.onMostraCarrinho}>
+            <img src={BotaoCarrinho} width="80%"/>
+          </CartButton>
       </Main>
 
     );
