@@ -37,11 +37,28 @@ function Filtro(props) {
     <Container>
       <Titulo>Filtros: </Titulo>
       <Label>Valor Mínimo:</Label>
-      <Input name="valorMinimo" type="number" value={props.valorMinimo} onChange={onChangeInputNumber} />
+      <Input
+        name="valorMinimo"
+        type="number"
+        min={0}
+        value={props.valorMinimo}
+        onChange={onChangeInputNumber}
+      />
       <Label>Valor Máximo:</Label>
-      <Input name="valorMaximo" type="number" value={props.valorMaximo} onChange={onChangeInputNumber} />
+      <Input
+        name="valorMaximo"
+        type="number"
+        min={0}
+        value={props.valorMaximo}
+        onChange={onChangeInputNumber}
+      />
       <Label>Busca por Nome:</Label>
-      <Input name="filtroNome" type="text" value={props.filtroNome} onChange={onChangeInputString} />
+      <Input
+        name="filtroNome"
+        type="text"
+        value={props.filtroNome}
+        onChange={onChangeInputString}
+      />
     </Container>
   );
 }
