@@ -1,47 +1,12 @@
- carrinho-Ecommerce
-import React from 'react';
-import './App.css';
- HEAD
-
-function App() {
-  return (
-    <div className="App">
-     
-      </header>
-    </div>
-  );
-
-import styled from 'styled-components'
-
-const Main = styled.main`
-  display: grid;
-  grid-template-areas: 
-    "filter products products products cart";
-  height: 90vh;
-  width: 90vw;
-  > section {
-    border: 1px solid black;
-  }
-`
-const FilterSection = styled.section`
-  grid-area: filter;
-`
-const ProductsSection = styled.section`
-  grid-area: products;
-`
-const CartSection = styled.section`
-  grid-area: cart;
-`
-
 import React from "react";
 import styled from "styled-components";
 import Filtro from "./components/Filtro";
- master
 
 const Wrapper = styled.div`
   display: flex;
   justify-content:space-evenly;
 `;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -88,29 +53,18 @@ class App extends React.Component {
     this.setState({
       [filtro]: valor
     })
+
   }
-carrinho-Ecommerce
- be5c34587a56851d3b8276536c3811a813ffef39
-}
-
-master
-
   render() {
-
-
     let objetosFiltradosMinimo = this.state.produtos.filter((elemento, index, array) => {
       return ((Number(this.state.valorMinimo)) ? (elemento.value >= Number(this.state.valorMinimo)) : true)
     })
-
     let objetosFiltradosMaximo = objetosFiltradosMinimo.filter((elemento, index, array) => {
       return ((Number(this.state.valorMaximo)) ? (elemento.value <= Number(this.state.valorMaximo)) : true)
     })
-
     let objetosFiltradosNome = objetosFiltradosMaximo.filter((elemento, index, array) => {
       return ((this.state.filtroNome) ? (elemento.name.toLowerCase().indexOf(this.state.filtroNome.toLowerCase()) != -1) : true)
     })
-
-
     let textoFiltrador = objetosFiltradosNome.map((elemento, index, array) => {
       return (
         <div>
@@ -120,7 +74,6 @@ master
         </div>
       )
     })
-
     return (
       <Wrapper>
         <Filtro
@@ -129,11 +82,10 @@ master
           valorMaximo={this.state.valorMaximo}
           filtroNome={this.state.filtroNome}
         />
-
         {textoFiltrador}
-
       </Wrapper>
     );
   }
 }
+
 export default App;

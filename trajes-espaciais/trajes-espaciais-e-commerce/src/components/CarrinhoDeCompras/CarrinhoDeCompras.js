@@ -66,12 +66,5 @@ class CarrinhoDeCompras extends React.Component {
 
 export default CarrinhoDeCompras
 
-// botão
-// onClick={props.funcao(parâmetro)}
-// onClick={()=>props.funcao(parâmetro)}
-{/* <div> */}
-//    <p>elemento.nome</p>
-//    <button> Deletar </button>
-// </div>
-// this.state.arrayDeProdutos.map
+
 
