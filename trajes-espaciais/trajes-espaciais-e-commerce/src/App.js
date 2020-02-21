@@ -23,12 +23,12 @@ const ProductsSection = styled.section`
 const CartSection = styled.section`
   grid-area: cart;
   max-width: 250px;
-  display: ${props => props.mostraCarrinho? "block":"none"}
+  display: ${props => props.mostraCarrinho ? "block" : "none"};
 `
 const Wrapper = styled.div`
   display: flex;
   justify-content:space-evenly;
-`;
+`
 
 const CartButton = styled.button`
 display:grid;
@@ -50,7 +50,7 @@ class App extends React.Component {
       valorMinimo: "",
       valorMaximo: "",
       filtroNome: "",
-      mostraCarrinho: true,
+      mostraCarrinho: false,
       produtos: [
         {
           id: 1,
@@ -84,7 +84,7 @@ class App extends React.Component {
           id: 5,
           name: "Traje Fantasia Carnaval",
           value: 100.0,
-          quantidade: 3,
+          quantidade: 0,
           imageUrl: require('./imagens/traje5.png')
         }
       ]
@@ -96,12 +96,24 @@ class App extends React.Component {
       [filtro]: valor
     })
   }
-onMostraCarrinho = () => {
-  this.setState({
-    mostraCarrinho: !this.state.mostraCarrinho
-  })
-}
+  onMostraCarrinho = () => {
+    this.setState({
+      mostraCarrinho: !this.state.mostraCarrinho
+    })
+  }
 
+  componentDidUpdate(){
+    localStorage.setItem('carrinho', JSON.stringify(this.state.produtos))
+  }
+
+  componentDidMount(){
+
+    const estadoRecuperado = JSON.parse(localStorage.getItem('carrinho'))
+    if (estadoRecuperado){
+      this.setState({produtos:estadoRecuperado})
+    }
+  }
+  
   deletaItemCarrinho = (produtoId) => {
     let copiaProdutos = this.state.produtos.map((elemento, index, array) => {
       if (elemento.id === produtoId) {
@@ -166,12 +178,12 @@ onMostraCarrinho = () => {
         <ProductsSection>
           <ProductHome productList={textoFiltrador} onAddToCart={this.adicionaItemCarrinho} />
         </ProductsSection>
-        <CartSection mostraCarrinho ={this.state.mostraCarrinho}>
+        <CartSection mostraCarrinho={this.state.mostraCarrinho}>
           <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} />
         </CartSection>
         <CartButton onClick={this.onMostraCarrinho}>
-            <img src={BotaoCarrinho} width="80%"/>
-          </CartButton>
+          <img src={BotaoCarrinho} width="80%" />
+        </CartButton>
       </Main>
 
     );
