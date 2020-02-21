@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Filtro from "./components/Filtro";
+import CarrinhoDeCompras from "./components/CarrinhoDeCompras/CarrinhoDeCompras";
 
 import ProductHome from './components/Product/Home'
 
@@ -40,30 +41,35 @@ class App extends React.Component {
           id: 1,
           name: "Traje Perdidos no Espaço 2018",
           value: 1000.0,
+          quantidade: 0,
           imageUrl: require('./imagens/traje1.png')
         },
         {
           id: 2,
           name: "Traje Insterestelar",
           value: 10000.0,
+          quantidade: 0,
           imageUrl: require('./imagens/traje3.png')
         },
         {
           id: 3,
           name: "Traje Perdido em Marte",
           value: 5000.0,
+          quantidade: 0,
           imageUrl: require('./imagens/traje4.png')
         },
         {
           id: 4,
           name: "Traje Futurista",
           value: 20000.0,
+          quantidade: 0,
           imageUrl: require('./imagens/traje2.png')
         },
         {
           id: 5,
           name: "Traje Fantasia Carnaval",
           value: 100.0,
+          quantidade: 3,
           imageUrl: require('./imagens/traje5.png')
         }
       ]
@@ -74,9 +80,26 @@ class App extends React.Component {
     this.setState({
       [filtro]: valor
     })
-
   }
+
+  deletaItemCarrinho = (produtoId) => {
+    let copiaProdutos = this.state.produtos.map((elemento, index, array) => {
+      if (elemento.id === produtoId) {
+        return ({
+          ...elemento,
+          quantidade: 0,
+        })
+      } else {
+        return (elemento)
+      }
+    })
+    this.setState({
+      produtos: copiaProdutos
+    })
+  }
+
   render() {
+    // FILTROS VALOR MÍNIMO E VALOR MÁXIMO
     let objetosFiltradosMinimo = this.state.produtos.filter((elemento, index, array) => {
       return ((Number(this.state.valorMinimo)) ? (elemento.value >= Number(this.state.valorMinimo)) : true)
     })
@@ -86,6 +109,14 @@ class App extends React.Component {
     let objetosFiltradosNome = objetosFiltradosMaximo.filter((elemento, index, array) => {
       return ((this.state.filtroNome) ? (elemento.name.toLowerCase().indexOf(this.state.filtroNome.toLowerCase()) != -1) : true)
     })
+
+    // FILTROS DO CARRINHO
+    let produtoFiltradoCarrinho = this.state.produtos.filter((elemento, index, array) => {
+      return (elemento.quantidade >= 1)
+    })
+
+
+
     let textoFiltrador = objetosFiltradosNome
     return (
       <Main>
@@ -100,8 +131,10 @@ class App extends React.Component {
         <ProductsSection>
           <ProductHome productList={textoFiltrador} onAddToCart={(item) => { console.log(item) }} />
         </ProductsSection>
-        <CartSection></CartSection>
+        <CartSection>
+        <CarrinhoDeCompras listaDeProdutos={produtoFiltradoCarrinho} removeOProduto={this.deletaItemCarrinho} /></CartSection>
       </Main>
+
     );
   }
 }
