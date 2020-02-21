@@ -18,31 +18,31 @@ class App extends React.Component {
           id: 1,
           name: "Traje Perdidos no Espaço 2018",
           value: 1000.0,
-          imageUrl: require('./imagens/traje1.jpg')
+          imageUrl: require('./imagens/traje1.png')
         },
         {
           id: 2,
           name: "Traje Insterestelar",
           value: 10000.0,
-          imageUrl: require('./imagens/traje3.jpg')
+          imageUrl: require('./imagens/traje3.png')
         },
         {
           id: 3,
           name: "Traje Perdido em Marte",
           value: 5000.0,
-          imageUrl: require('./imagens/traje4.jpg')
+          imageUrl: require('./imagens/traje4.png')
         },
         {
           id: 4,
           name: "Traje Futurista",
           value: 20000.0,
-          imageUrl: require('./imagens/traje2.jpg')
+          imageUrl: require('./imagens/traje2.png')
         },
         {
           id: 5,
           name: "Traje Fantasia Carnaval",
           value: 100.0,
-          imageUrl: require('./imagens/traje5.jpg')
+          imageUrl: require('./imagens/traje5.png')
         }
       ]
     };
